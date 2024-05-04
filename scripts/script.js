@@ -41,7 +41,7 @@ $(document).ready(function() {
         var developerMode = {
             '.': 'Dot',
             '!': 'Bang',
-            '*': 'Splat'
+            '*': 'Splat',
             ' ': ' '
         };
 
