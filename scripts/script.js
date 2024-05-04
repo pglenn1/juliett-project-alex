@@ -3,7 +3,7 @@ $(document).ready(function() {
     $.getJSON('NATO.json', function(data) {
         var natoPhonetic = data;
 
-        // Phonetic alphabets
+        // Phonetic alphabet
         var civilianPhonetic = {
             'A': 'Adam',
             'B': 'Boy',
