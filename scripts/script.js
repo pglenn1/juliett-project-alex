@@ -1,93 +1,52 @@
 $(document).ready(function() {
-    // Load NATO phonetic alphabet from JSON file
-    $.getJSON('NATO.json', function(data) {
-        var natoPhonetic = data;
+    $.getJSON("resume.json", function(data) {
+        var resumeData = $("#resumeData");
+        var html = '';
 
-        // Phonetic alphabets
-        var civilianPhonetic = {
-            'A': 'Adam',
-            'B': 'Boy',
-            'C': 'Car',
-            'D': 'Dog',
-            'E': 'Edward',
-            'F': 'Frank',
-            'G': 'George',
-            'H': 'Henry',
-            'I': 'Ida',
-            'J': 'John',
-            'K': 'King',
-            'L': 'Lime',
-            'M': 'Mary',
-            'N': 'Neck',
-            'O': 'Ocean',
-            'P': 'Paul',
-            'Q': 'Queen',
-            'R': 'Rome',
-            'S': 'Sam',
-            'T': 'Tom',
-            'U': 'Union',
-            'V': 'Van',
-            'W': 'Will',
-            'X': 'X-ray',
-            'Y': 'Young',
-            'Z': 'Zebra',
-            '.': 'Dot',
-            '!': 'Bang',
-            '*': 'Star'
-        };
+        // Name
+        html += '<h1>' + data.name + '</h1>';
+        html += '<hr>';
 
-        var developerMode = {
-            '.': 'Dot',
-            '!': 'Bang',
-            '*': 'Splat'
-        };
+        // Contact Information
+        html += '<h2>Contact Information:</h2>';
+        html += '<div class="resume-section">';
+        html += '<p>' + data.email + '</p>';
+        html += '<p>' + data.phone + '</p>';
+        html += '</div>';
+        html += '<hr>';
 
-        var currentPhonetic = civilianPhonetic;
-
-        // Function to convert text to phonetic
-        function convertToPhonetic(text, phonetic) {
-            var result = '';
-            for (var i = 0; i < text.length; i++) {
-                var char = text.charAt(i).toUpperCase();
-                if (phonetic[char]) {
-                    result += phonetic[char] + ' ';
-                } else {
-                    result += char + ' (Unknown) ';
-                }
-            }
-            return result.trim();
+        // Education
+        html += '<h3>Education:</h3>';
+        for (var i = 0; i < data.education.length; i++) {
+        html += '<div class="resume-section">';
+        html += '<h4>' + data.education[i].degree + '</h4>';
+        html += '<p>' + data.education[i].university + '</p>';
+        html += '<p>' + data.education[i].year + '</p>';
+        html += '</div>';
         }
+        html += '<hr>';
 
-        // Event listener for input event on text input
-        $('#textInput').on('input', function() {
-            var inputText = $(this).val().trim();
-            var output = convertToPhonetic(inputText, currentPhonetic);
-            $('#outputList').empty();
-            $('#outputList').append('<li class="list-group-item">' + output + '</li>');
-        });
+        // Work Experience
+        html += '<h3>Work Experience:</h3>';
+        for (var j = 0; j < data.experience.length; j++) {
+        html += '<div class="resume-section">';
+        html += '<h4>' + data.experience[j].position + '</h4>';
+        html += '<p>' + data.experience[j].company + '</p>';
+        html += '<p>' + data.experience[j].duration + '</p>';
+        html += '<p>' + data.experience[j].description + '</p>';
+        html += '</div>';
+        }
+        html += '<hr>';
 
-        // Event listener for clear button
-        $('#clearBtn').click(function() {
-            $('#textInput').val('');
-            $('#outputList').empty();
-        });
+        // Skills
+        html += '<h3>Skills:</h3>';
+        html += '<ul>';
+        for (var k = 0; k < data.skills.length; k++) {
+        html += '<li>' + data.skills[k] + '</li>';
+        }
+        html += '</ulr>';
 
-        // Event listener for toggle button
-        $('#toggleBtn').click(function() {
-            if (currentPhonetic === civilianPhonetic) {
-                currentPhonetic = natoPhonetic;
-                $(this).text('Civilian Phonetic Alphabet');
-            } else if (currentPhonetic === natoPhonetic) {
-                currentPhonetic = developerMode;
-                $(this).text('Developer Mode');
-            } else {
-                currentPhonetic = civilianPhonetic;
-                $(this).text('NATO Phonetic Alphabet');
-            }
-            var inputText = $('#textInput').val().trim();
-            var output = convertToPhonetic(inputText, currentPhonetic);
-            $('#outputList').empty();
-            $('#outputList').append('<li class="list-group-item">' + output + '</li>');
-        });
+
+        resumeData.html(html);
     });
 });
