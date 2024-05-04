@@ -31,7 +31,10 @@ $(document).ready(function() {
             'X': 'X-ray',
             'Y': 'Young',
             'Z': 'Zebra',
-            ' ': ' '
+            ' ': ' ',
+            ',': ',',
+            '.': '.',
+            '!': '!'
             
         };
 
