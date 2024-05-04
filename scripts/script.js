@@ -30,10 +30,8 @@ $(document).ready(function() {
             'W': 'Will',
             'X': 'X-ray',
             'Y': 'Young',
-            'Z': 'Zebra',
-            '.': 'Dot',
-            '!': 'Bang',
-            '*': 'Star'
+            'Z': 'Zebra'
+            
         };
 
         var developerMode = {
