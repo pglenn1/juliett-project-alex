@@ -35,7 +35,6 @@ $(document).ready(function() {
             ',': ',',
             '.': '.',
             '!': '!'
-            
         };
 
         var developerMode = {
@@ -61,6 +60,30 @@ $(document).ready(function() {
             return result.trim();
         }
 
+        // Populate dropdown menu
+        var dropdownMenu = $('#modeDropdown');
+        dropdownMenu.empty();
+        dropdownMenu.append('<option value="civilian">Civilian Phonetics</option>');
+        dropdownMenu.append('<option value="nato">NATO Phonetics</option>');
+        dropdownMenu.append('<option value="developer">Developer Mode</option>');
+
+        // Event listener for mode dropdown change
+        dropdownMenu.change(function() {
+            var selectedMode = $(this).val();
+            if (selectedMode === 'civilian') {
+                currentPhonetic = civilianPhonetic;
+            } else if (selectedMode === 'nato') {
+                currentPhonetic = natoPhonetic;
+            } else if (selectedMode === 'developer') {
+                currentPhonetic = developerMode;
+            }
+
+            var inputText = $('#textInput').val().trim();
+            var output = convertToPhonetic(inputText, currentPhonetic);
+            $('#outputList').empty();
+            $('#outputList').append('<li class="list-group-item">' + output + '</li>');
+        });
+
         // Event listener for input event on text input
         $('#textInput').on('input', function() {
             var inputText = $(this).val().trim();
@@ -73,24 +96,6 @@ $(document).ready(function() {
         $('#clearBtn').click(function() {
             $('#textInput').val('');
             $('#outputList').empty();
-        });
-
-        // Event listener for toggle button
-        $('#toggleBtn').click(function() {
-            if (currentPhonetic === civilianPhonetic) {
-                currentPhonetic = natoPhonetic;
-                $(this).text('NATO Phonetic Alphabet');
-            } else if (currentPhonetic === natoPhonetic) {
-                currentPhonetic = developerMode;
-                $(this).text('Developer Mode');
-            } else {
-                currentPhonetic = civilianPhonetic;
-                $(this).text('Civilian Phonetic Alphabet');
-            }
-            var inputText = $('#textInput').val().trim();
-            var output = convertToPhonetic(inputText, currentPhonetic);
-            $('#outputList').empty();
-            $('#outputList').append('<li class="list-group-item">' + output + '</li>');
         });
     });
 });
