@@ -30,7 +30,8 @@ $(document).ready(function() {
             'W': 'Will',
             'X': 'X-ray',
             'Y': 'Young',
-            'Z': 'Zebra'
+            'Z': 'Zebra',
+            ' ': ' '
             
         };
 
@@ -38,6 +39,7 @@ $(document).ready(function() {
             '.': 'Dot',
             '!': 'Bang',
             '*': 'Splat'
+            ' ': ' '
         };
 
         var currentPhonetic = civilianPhonetic;
@@ -74,13 +76,13 @@ $(document).ready(function() {
         $('#toggleBtn').click(function() {
             if (currentPhonetic === civilianPhonetic) {
                 currentPhonetic = natoPhonetic;
-                $(this).text('Civilian Phonetic Alphabet');
+                $(this).text('NATO Phonetic Alphabet');
             } else if (currentPhonetic === natoPhonetic) {
                 currentPhonetic = developerMode;
                 $(this).text('Developer Mode');
             } else {
                 currentPhonetic = civilianPhonetic;
-                $(this).text('NATO Phonetic Alphabet');
+                $(this).text('Civilian Phonetic Alphabet');
             }
             var inputText = $('#textInput').val().trim();
             var output = convertToPhonetic(inputText, currentPhonetic);
